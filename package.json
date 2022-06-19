@@ -5,6 +5,8 @@
   "main": "index.js",
   "dependencies": {
     "config": "^3.3.7",
+    "debug": "^4.3.4",
+    "ejs": "^3.1.8",
     "express": "^4.18.1",
     "express-validator": "^6.14.1",
     "helmet": "^5.1.0",
