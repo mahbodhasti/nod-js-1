@@ -8,11 +8,14 @@ const config = require('config')
 const debug = require('debug')('app:main')
 const userRouter = require('./routes/users')
 const homeRouter = require('./routes/home')
+const mongoose = require('mongoose') 
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(express.static('public'))
 app.use(helmet())
+app.use('/api/users', userRouter )
+app.use('/', homeRouter )
 app.set('view engine', 'ejs');
 app.set('views','./views')
 // using for config package
@@ -27,13 +30,15 @@ if(app.get('env') == 'development'){
 
 }
 
+mongoose
+    .connect("mongodb://localhost:27017/helloexpress")
+    .then(()=>console.log("connected to db"))
+    .catch(()=>console.log('could not connect to mongodb'))
+
+
+
 console.log('NODE_ENV:',process.env.NODE_ENV)
 console.log(app.get('env'))
-
-
-
-app.use('/api/users', userRouter )
-app.use('/', homeRouter )
 
 
 const port =process.env.PORT || 3000
